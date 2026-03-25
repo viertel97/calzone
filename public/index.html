@@ -184,6 +184,38 @@
     .converter input::placeholder {
       color: #6e7681;
     }
+    .converter select {
+      width: 100%;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 16px;
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.85rem;
+      color: #f0f0f0;
+      margin-bottom: 20px;
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236e7681' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      cursor: pointer;
+    }
+    .converter select:focus {
+      border-color: #f4a261;
+    }
+    .converter select option {
+      background: #0d1117;
+      color: #f0f0f0;
+    }
+    .tz-hint {
+      font-size: 0.8rem;
+      color: #6e7681;
+      margin-top: -14px;
+      margin-bottom: 20px;
+    }
     .output-wrapper {
       display: flex;
       align-items: center;
@@ -378,7 +410,7 @@
       <span>Calzone</span>
     </div>
     <h1>Outlook calendar showing <span class="accent">wrong timezone</span> in Google Calendar?</h1>
-    <p>Outlook ICS feeds use Windows timezone names like "Romance Standard Time" that Google Calendar doesn't recognize — defaulting to UTC and shifting your events hours off. Calzone is a live proxy that converts them to standard IANA timezones automatically, keeping your calendar in sync with the correct times.</p>
+    <p>Outlook ICS feeds use Windows timezone names that Google Calendar doesn't recognize — defaulting to UTC and shifting your events hours off. Calzone is a live proxy that converts timezone names and can shift UTC events to your local timezone, keeping your calendar in sync with the correct times.</p>
   </div>
 
   <!-- How it works -->
@@ -392,8 +424,8 @@
       </div>
       <div class="step-card">
         <div class="step-number">2</div>
-        <h3>We fix it live</h3>
-        <p>Calzone sits between Outlook and Google, converting Windows timezone names to IANA on every sync</p>
+        <h3>Pick your timezone</h3>
+        <p>Optionally select your timezone to shift UTC events to local time — handles DST automatically</p>
       </div>
       <div class="step-card">
         <div class="step-number">3</div>
@@ -409,6 +441,73 @@
     <div class="converter">
       <label>Your Outlook calendar URL</label>
       <input type="text" id="input" placeholder="https://outlook.office365.com/owa/calendar/..." autocomplete="off">
+      <label>Target timezone <span style="color:#6e7681; font-weight:400">(optional — shifts UTC events to local time)</span></label>
+      <select id="tz-select">
+        <option value="">None — only fix timezone names</option>
+        <optgroup label="Europe">
+          <option value="Europe/Berlin">Europe/Berlin (Germany, CET/CEST)</option>
+          <option value="Europe/London">Europe/London (UK, GMT/BST)</option>
+          <option value="Europe/Paris">Europe/Paris (France, CET/CEST)</option>
+          <option value="Europe/Amsterdam">Europe/Amsterdam (Netherlands)</option>
+          <option value="Europe/Rome">Europe/Rome (Italy)</option>
+          <option value="Europe/Madrid">Europe/Madrid (Spain)</option>
+          <option value="Europe/Zurich">Europe/Zurich (Switzerland)</option>
+          <option value="Europe/Vienna">Europe/Vienna (Austria)</option>
+          <option value="Europe/Brussels">Europe/Brussels (Belgium)</option>
+          <option value="Europe/Stockholm">Europe/Stockholm (Sweden)</option>
+          <option value="Europe/Oslo">Europe/Oslo (Norway)</option>
+          <option value="Europe/Copenhagen">Europe/Copenhagen (Denmark)</option>
+          <option value="Europe/Helsinki">Europe/Helsinki (Finland)</option>
+          <option value="Europe/Warsaw">Europe/Warsaw (Poland)</option>
+          <option value="Europe/Prague">Europe/Prague (Czech Republic)</option>
+          <option value="Europe/Budapest">Europe/Budapest (Hungary)</option>
+          <option value="Europe/Bucharest">Europe/Bucharest (Romania)</option>
+          <option value="Europe/Athens">Europe/Athens (Greece)</option>
+          <option value="Europe/Istanbul">Europe/Istanbul (Turkey)</option>
+          <option value="Europe/Moscow">Europe/Moscow (Russia)</option>
+          <option value="Europe/Lisbon">Europe/Lisbon (Portugal)</option>
+          <option value="Europe/Dublin">Europe/Dublin (Ireland)</option>
+        </optgroup>
+        <optgroup label="Americas">
+          <option value="America/New_York">America/New_York (US Eastern)</option>
+          <option value="America/Chicago">America/Chicago (US Central)</option>
+          <option value="America/Denver">America/Denver (US Mountain)</option>
+          <option value="America/Los_Angeles">America/Los_Angeles (US Pacific)</option>
+          <option value="America/Anchorage">America/Anchorage (Alaska)</option>
+          <option value="Pacific/Honolulu">Pacific/Honolulu (Hawaii)</option>
+          <option value="America/Toronto">America/Toronto (Canada Eastern)</option>
+          <option value="America/Vancouver">America/Vancouver (Canada Pacific)</option>
+          <option value="America/Mexico_City">America/Mexico_City (Mexico)</option>
+          <option value="America/Sao_Paulo">America/Sao_Paulo (Brazil)</option>
+          <option value="America/Argentina/Buenos_Aires">America/Argentina/Buenos_Aires</option>
+          <option value="America/Bogota">America/Bogota (Colombia)</option>
+          <option value="America/Santiago">America/Santiago (Chile)</option>
+        </optgroup>
+        <optgroup label="Asia & Pacific">
+          <option value="Asia/Tokyo">Asia/Tokyo (Japan)</option>
+          <option value="Asia/Shanghai">Asia/Shanghai (China)</option>
+          <option value="Asia/Hong_Kong">Asia/Hong_Kong</option>
+          <option value="Asia/Singapore">Asia/Singapore</option>
+          <option value="Asia/Seoul">Asia/Seoul (South Korea)</option>
+          <option value="Asia/Kolkata">Asia/Kolkata (India)</option>
+          <option value="Asia/Dubai">Asia/Dubai (UAE)</option>
+          <option value="Asia/Bangkok">Asia/Bangkok (Thailand)</option>
+          <option value="Asia/Jakarta">Asia/Jakarta (Indonesia)</option>
+          <option value="Asia/Taipei">Asia/Taipei (Taiwan)</option>
+          <option value="Asia/Jerusalem">Asia/Jerusalem (Israel)</option>
+          <option value="Australia/Sydney">Australia/Sydney</option>
+          <option value="Australia/Melbourne">Australia/Melbourne</option>
+          <option value="Australia/Perth">Australia/Perth</option>
+          <option value="Pacific/Auckland">Pacific/Auckland (New Zealand)</option>
+        </optgroup>
+        <optgroup label="Africa">
+          <option value="Africa/Cairo">Africa/Cairo (Egypt)</option>
+          <option value="Africa/Johannesburg">Africa/Johannesburg (South Africa)</option>
+          <option value="Africa/Lagos">Africa/Lagos (Nigeria)</option>
+          <option value="Africa/Nairobi">Africa/Nairobi (Kenya)</option>
+          <option value="Africa/Casablanca">Africa/Casablanca (Morocco)</option>
+        </optgroup>
+      </select>
       <div class="output-wrapper" id="output-wrapper">
         <span id="output" class="placeholder">Your fixed URL will appear here</span>
         <button class="copy-btn" id="copy-btn" disabled>Copy</button>
@@ -469,11 +568,12 @@
 
   <script>
     const input = document.getElementById('input');
+    const tzSelect = document.getElementById('tz-select');
     const output = document.getElementById('output');
     const outputWrapper = document.getElementById('output-wrapper');
     const copyBtn = document.getElementById('copy-btn');
 
-    input.addEventListener('input', () => {
+    function updateOutput() {
       const url = input.value.trim();
 
       if (!url) {
@@ -492,12 +592,23 @@
         return;
       }
 
-      const converted = url.replace('outlook.office365.com', window.location.host);
+      let converted = url.replace('outlook.office365.com', window.location.host);
+
+      // Append timezone parameter if selected
+      const tz = tzSelect.value;
+      if (tz) {
+        const sep = converted.includes('?') ? '&' : '?';
+        converted += sep + 'tz=' + encodeURIComponent(tz);
+      }
+
       output.textContent = converted;
       output.className = '';
       outputWrapper.classList.add('success');
       copyBtn.disabled = false;
-    });
+    }
+
+    input.addEventListener('input', updateOutput);
+    tzSelect.addEventListener('change', updateOutput);
 
     copyBtn.addEventListener('click', async () => {
       try {
